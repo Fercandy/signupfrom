@@ -21,6 +21,17 @@ export default function(ComposedComponent) {
                 this.props.history.push(location);
             }
         }
+        
+        componentDidUpdate(){
+            if(!this.props.isAuthenticated){
+                this.props.addFlashMessage({
+                    type: 'error',
+                    text: 'You need to login to access this page'
+                });
+                this.props.history.push('/login');
+            }
+        }
+        
         render() {
             return (
                 <ComposedComponent {...this.props} />
